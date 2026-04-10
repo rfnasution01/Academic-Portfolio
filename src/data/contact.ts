@@ -1,12 +1,36 @@
-// contact.ts
 export type ContactData = {
-	whatsapp: string;
-	linkedin: string;
+	title: string;
+	description: string;
 	email: string;
+	location: string;
+	socials: {
+		label: string;
+		link: string;
+	}[];
 };
 
 export const CONTACT_DATA: ContactData = {
-	whatsapp: "6281234567890",
-	linkedin: "https://linkedin.com",
-	email: "budi.santoso@mining-eng.com",
+	title: "Get In Touch",
+
+	description:
+		"I am open to research collaborations, graduate opportunities, and professional discussions. Feel free to reach out.",
+
+	email: "johndoe@email.com",
+
+	location: "Jakarta",
+
+	socials: [
+		{
+			label: "LinkedIn",
+			link: "#",
+		},
+		{
+			label: "Google Scholar",
+			link: "#",
+		},
+		{
+			label: "GitHub",
+			link: "#",
+		},
+	],
 };

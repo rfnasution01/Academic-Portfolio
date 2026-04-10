@@ -1,26 +1,33 @@
-import type { IconType } from "react-icons";
-import { FaHardHat } from "react-icons/fa"; // Mengganti FaUniversity menjadi FaHardHat agar lebih relevan dengan tambang
-
 export type AboutData = {
 	title: string;
 	description: string;
-	education: {
-		degree: string;
-		institution: string;
-		period: string;
-		gpa: string;
-		icon: IconType;
-	};
+	highlights: {
+		title: string;
+		description: string;
+	}[];
 };
 
 export const ABOUT_DATA: AboutData = {
 	title: "About Me",
-	description: `Dedicated Mining Engineer with a passion for optimizing resource extraction and site safety. Experienced in open-pit planning and heavy equipment management, with a strong focus on operational efficiency, environmental compliance, and sustainable mining practices. Always implementing advanced geological modeling to maximize site productivity.`,
-	education: {
-		degree: "B.Eng. Mining Engineering",
-		institution: "National School of Mines",
-		period: "2018 - 2022",
-		gpa: "3.75",
-		icon: FaHardHat,
-	},
+
+	description:
+		"I am a recent graduate with a strong focus on applying machine learning techniques in healthcare. My academic journey has been driven by curiosity in data-driven problem solving, particularly in medical diagnostics and predictive modeling.",
+
+	highlights: [
+		{
+			title: "Research Focus",
+			description:
+				"Machine learning applications in healthcare, medical imaging, and data-driven diagnostics.",
+		},
+		{
+			title: "Academic Background",
+			description:
+				"Bachelor’s degree in Biomedical Engineering with strong foundation in statistics and data analysis.",
+		},
+		{
+			title: "Career Goal",
+			description:
+				"Seeking opportunities in research and graduate studies to contribute to impactful healthcare solutions.",
+		},
+	],
 };

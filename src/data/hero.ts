@@ -1,23 +1,52 @@
-import ProfileImage from "@/assets/img/profiles.jpg";
+import ImgProfil from "@/assets/img/profiles.jpg";
 
 export type HeroData = {
-	headlines: string[];
-	title: string;
+	name: string;
+	role: string;
+	// Tambahkan ini agar tidak error
+	currentInstitution?: string;
+	tagline: string;
 	description: string;
+	stats: {
+		label: string;
+		value: string;
+	}[];
+	primaryCta: {
+		label: string;
+		link: string;
+	};
+	secondaryCta: {
+		label: string;
+		link: string;
+	};
 	image: string;
-	phone: string;
 };
 
 export const HERO_DATA: HeroData = {
-	headlines: [
-		"Budi Santoso, S.T.",
-		"Mining Engineer",
-		"Mine Planner",
-		"Operations Supervisor",
+	name: "Dr. John Doe",
+	role: "Biomedical Researcher",
+	// Sekarang kamu bisa mengisi ini
+	currentInstitution: "Stanford University School of Medicine",
+	tagline: "AI for Healthcare & Medical Data Analysis",
+
+	description:
+		"Recent graduate specializing in machine learning applications in healthcare, with a focus on building data-driven solutions for medical diagnostics.",
+
+	stats: [
+		{ label: "Publications", value: "5+" },
+		{ label: "Conferences", value: "3" },
+		{ label: "GPA", value: "3.85" },
 	],
-	title: "Driving Safe, Efficient, and Sustainable Mining Operations.",
-	description: `I specialize in optimizing open-pit layouts, managing fleet 
-productivity, and ensuring rigorous safety standards to maximize mineral recovery.`,
-	image: ProfileImage,
-	phone: "6281234567890",
+
+	primaryCta: {
+		label: "Download CV",
+		link: "/cv.pdf",
+	},
+
+	secondaryCta: {
+		label: "View Research",
+		link: "#publications",
+	},
+
+	image: ImgProfil,
 };
