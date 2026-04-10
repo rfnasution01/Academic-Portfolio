@@ -1,0 +1,5 @@
+export * from './aboutMe'
+export * from './contactSection'
+export * from './heroSection'
+export * from './portfolioSection'
+export * from './skillSection'
