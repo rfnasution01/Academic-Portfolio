@@ -118,7 +118,8 @@
 	}
 
 	.btn-outline:hover {
-		@apply bg-[var(--foreground)] text-[var(--background)];
+		background-color: var(--foreground);
+		color: var(--background) !important;
 	}
 }
 

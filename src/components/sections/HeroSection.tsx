@@ -85,7 +85,8 @@ export const HeroSection = () => {
 						{/* CTA */}
 						<motion.div variants={item} className="mt-12 flex flex-wrap gap-5">
 							<a
-								href={HERO_DATA.primaryCta.link}
+								href="/CV.pdf" // Pastikan file CV.pdf ada di folder /public
+								download="CV_Dr_John_Doe.pdf" // Atribut ini memaksa download dengan nama file baru
 								className="btn-primary px-8 py-4 shadow-xl shadow-blue-900/10"
 							>
 								{HERO_DATA.primaryCta.label}
