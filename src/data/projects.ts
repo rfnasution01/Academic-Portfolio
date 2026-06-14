@@ -17,13 +17,13 @@ export const PROJECTS_DATA: Project[] = [
 		year: "2024",
 		link: "#",
 	},
-	{
-		title: "Predictive Modeling for Patient Readmission",
-		description:
-			"Built a machine learning model to predict hospital readmission risk based on patient records.",
-		methods: ["Logistic Regression", "Python", "Data Analysis"],
-		result: "Improved prediction accuracy by 18% compared to baseline model.",
-		year: "2023",
-		link: "#",
-	},
+		{
+			title: "Predictive Modeling for Patient Readmission",
+			description:
+				"Built a machine learning model to predict hospital readmission risk based on patient records.",
+			methods: ["Logistic Regression", "Python", "Data Analysis"],
+			result: "Improved prediction accuracy by 18% compared to baseline model.",
+			year: "2023",
+			link: "#",
+		},
 ];
