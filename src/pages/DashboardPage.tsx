@@ -1,4 +1,4 @@
-import { academicPortfolio } from "@/data/academic";
+import { PORTFOLIO_DATA } from "@/data/portfolio";
 import { AnimatePresence, motion, type Variants } from "framer-motion";
 import { useMemo, useState, type FormEvent } from "react";
 import { ToastContainer, toast } from "react-toastify";
@@ -6,7 +6,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 type CitationStyle = "APA" | "MLA" | "BibTeX";
 type PublicationType = "All" | "Journal" | "Conference" | "Preprint";
-type Publication = (typeof academicPortfolio.publications)[number];
+type Publication = (typeof PORTFOLIO_DATA.publications)[number];
 
 const fadeIn: Variants = {
 	hidden: { opacity: 0, y: 16 },
@@ -27,7 +27,7 @@ function Navbar() {
 		<header className="fixed inset-x-0 top-0 z-40 border-b border-[var(--border)] bg-white/95 backdrop-blur">
 			<nav className="container-custom flex h-[60px] items-center justify-between">
 				<a href="#home" className="font-serif text-xl font-semibold text-[var(--foreground)]">
-					Aris Setiawan, M.Sc.
+					Dr. Amelia Hart
 				</a>
 				<div className="hidden gap-7 md:flex">
 					{links.map(([label, href]) => (
@@ -36,7 +36,7 @@ function Navbar() {
 						</a>
 					))}
 				</div>
-				<a href={`mailto:${academicPortfolio.profile.email}`} className="btn-ghost hidden md:inline-flex">
+				<a href={`mailto:${PORTFOLIO_DATA.profile.email}`} className="btn-ghost hidden md:inline-flex">
 					Email
 				</a>
 			</nav>
@@ -45,7 +45,7 @@ function Navbar() {
 }
 
 function HeroSection() {
-	const { profile } = academicPortfolio;
+	const { profile } = PORTFOLIO_DATA;
 	return (
 		<section id="home" className="paper-texture flex min-h-[90vh] items-center pt-[60px]">
 			<motion.div initial="hidden" animate="show" variants={fadeIn} className="container-custom py-16 text-center">
@@ -71,7 +71,7 @@ function ResearchSection() {
 			<div className="container-custom">
 				<h2 className="section-title text-center">Research Interests</h2>
 				<div className="mt-12 grid gap-6 md:grid-cols-3">
-					{academicPortfolio.researchInterests.map((item) => (
+					{PORTFOLIO_DATA.researchInterests.map((item) => (
 						<motion.article key={item.title} variants={fadeIn} initial="hidden" whileInView="show" viewport={{ once: true, margin: "-80px" }} className="h-full border border-[var(--border)] bg-white p-8">
 							<div className="mb-7 flex h-14 w-14 items-center justify-center rounded-full border border-[var(--border)] text-3xl text-[var(--primary)]">{item.icon}</div>
 							<h3 className="text-[22px] font-semibold">{item.title}</h3>
@@ -91,7 +91,7 @@ function PublicationsSection() {
 	const [citationStyle, setCitationStyle] = useState<CitationStyle>("APA");
 
 	const publications = useMemo(() => {
-		return academicPortfolio.publications.filter((pub) => {
+		return PORTFOLIO_DATA.publications.filter((pub) => {
 			const matchesFilter = filter === "All" || pub.tag === filter;
 			const haystack = `${pub.title} ${pub.authors} ${pub.venue} ${pub.abstract}`.toLowerCase();
 			return matchesFilter && haystack.includes(query.toLowerCase());
@@ -117,7 +117,7 @@ function PublicationsSection() {
 					<input value={query} onChange={(e) => setQuery(e.target.value)} placeholder="Search papers..." className="min-h-11 flex-1 rounded-md border border-[var(--border)] px-4 outline-none transition focus:border-[var(--primary)]" />
 					<div className="flex flex-wrap gap-2">
 						{filters.map((label) => (
-							<button key={label} onClick={() => setFilter(label)} className={filter === label ? "btn-primary" : "btn-ghost"}>{label}</button>
+							<button type="button" key={label} onClick={() => setFilter(label)} className={filter === label ? "btn-primary" : "btn-ghost"}>{label}</button>
 						))}
 					</div>
 				</div>
@@ -135,7 +135,7 @@ function PublicationsSection() {
 								<div className="flex gap-2">
 									<a className="paper-link" href={pub.pdf} target="_blank" rel="noreferrer">PDF</a>
 									<a className="paper-link" href={pub.doi} target="_blank" rel="noreferrer">DOI</a>
-									<button className="paper-link" onClick={() => openCitation(pub)}>Cite</button>
+									<button type="button" className="paper-link" onClick={() => openCitation(pub)}>Cite</button>
 								</div>
 							</div>
 						</motion.article>
@@ -149,15 +149,15 @@ function PublicationsSection() {
 						<motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 10 }} className="w-full max-w-2xl rounded-lg border border-[var(--border)] bg-white p-6 shadow-xl">
 							<div className="flex items-center justify-between border-b border-[var(--border)] pb-4">
 								<h3 className="text-2xl font-semibold">Cite This Paper</h3>
-								<button onClick={() => setActivePub(null)} className="paper-link" aria-label="Close citation modal">×</button>
+								<button type="button" onClick={() => setActivePub(null)} className="paper-link" aria-label="Close citation modal">×</button>
 							</div>
 							<div className="mt-5 flex gap-2">
 								{(["APA", "MLA", "BibTeX"] as CitationStyle[]).map((style) => (
-									<button key={style} onClick={() => setCitationStyle(style)} className={citationStyle === style ? "btn-primary" : "btn-ghost"}>{style}</button>
+									<button type="button" key={style} onClick={() => setCitationStyle(style)} className={citationStyle === style ? "btn-primary" : "btn-ghost"}>{style}</button>
 								))}
 							</div>
 							<p className="mt-6 whitespace-pre-wrap rounded-md bg-[var(--secondary)] p-4 text-[var(--muted)]">{activePub.citations[citationStyle]}</p>
-							<div className="mt-6 text-right"><button onClick={copyCitation} className="btn-primary">Copy Text</button></div>
+							<div className="mt-6 text-right"><button type="button" onClick={copyCitation} className="btn-primary">Copy Text</button></div>
 						</motion.div>
 					</div>
 				)}
@@ -172,7 +172,7 @@ function EducationSection() {
 			<div className="container-custom">
 				<h2 className="section-title text-center">Education</h2>
 				<div className="mx-auto mt-12 max-w-3xl">
-					{academicPortfolio.education.map((item, index) => (
+					{PORTFOLIO_DATA.education.map((item, index) => (
 						<motion.div key={item.degree} variants={fadeIn} initial="hidden" whileInView="show" viewport={{ once: true }} className="relative grid gap-5 border-l border-[var(--border)] pb-12 pl-8 md:grid-cols-[150px_1fr]">
 							<span className="absolute -left-[7px] top-0 h-3.5 w-3.5 rounded-full border-2 border-[var(--primary)] bg-white" />
 							<div><p className="meta-tag w-fit">{item.period}</p><img src={item.logo} alt={`${item.institution} logo`} className="mt-4 h-10 w-10 rounded bg-white object-contain p-1" /></div>
@@ -181,7 +181,7 @@ function EducationSection() {
 								<p className="mt-1 font-medium text-[var(--muted)]">{item.institution}</p>
 								<ul className="mt-4 space-y-1 text-[var(--muted)]">{item.details.map((detail) => <li key={detail}>• {detail}</li>)}</ul>
 							</div>
-							{index === academicPortfolio.education.length - 1 && <span className="absolute bottom-0 left-[-1px] h-8 w-px bg-[var(--secondary)]" />}
+							{index === PORTFOLIO_DATA.education.length - 1 && <span className="absolute bottom-0 left-[-1px] h-8 w-px bg-[var(--secondary)]" />}
 						</motion.div>
 					))}
 				</div>
@@ -196,8 +196,8 @@ function TeachingSection() {
 			<div className="container-custom">
 				<h2 className="section-title text-center">Teaching & Talks</h2>
 				<div className="mt-12 grid gap-12 md:grid-cols-2">
-					<div><h3 className="mb-5 border-b border-[var(--border)] pb-3 text-lg font-semibold uppercase tracking-wide">Teaching Experience</h3>{academicPortfolio.teaching.map((item) => <article key={item.course} className="mb-7"><p className="font-semibold">• {item.role}</p><p className="ml-5 text-[var(--muted)]">{item.course}</p><p className="ml-5 text-sm text-[var(--muted)]">{item.meta}</p></article>)}</div>
-					<div><h3 className="mb-5 border-b border-[var(--border)] pb-3 text-lg font-semibold uppercase tracking-wide">Conference Talks</h3>{academicPortfolio.talks.map((talk) => <article key={talk.title} className="mb-7"><p className="font-semibold">• “{talk.title}”</p><p className="ml-5 text-[var(--muted)]">{talk.venue}</p><a className="ml-5 text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href={talk.slides} target="_blank" rel="noreferrer">View Slides</a></article>)}</div>
+					<div><h3 className="mb-5 border-b border-[var(--border)] pb-3 text-lg font-semibold uppercase tracking-wide">Teaching Experience</h3>{PORTFOLIO_DATA.teaching.map((item) => <article key={item.course} className="mb-7"><p className="font-semibold">• {item.role}</p><p className="ml-5 text-[var(--muted)]">{item.course}</p><p className="ml-5 text-sm text-[var(--muted)]">{item.meta}</p></article>)}</div>
+					<div><h3 className="mb-5 border-b border-[var(--border)] pb-3 text-lg font-semibold uppercase tracking-wide">Conference Talks</h3>{PORTFOLIO_DATA.talks.map((talk) => <article key={talk.title} className="mb-7"><p className="font-semibold">• “{talk.title}”</p><p className="ml-5 text-[var(--muted)]">{talk.venue}</p><a className="ml-5 text-sm font-semibold text-[var(--primary)] hover:text-[var(--primary-hover)]" href={talk.slides} target="_blank" rel="noreferrer">View Slides</a></article>)}</div>
 				</div>
 			</div>
 		</section>
@@ -210,13 +210,16 @@ function ProjectsSection() {
 			<div className="container-custom">
 				<h2 className="section-title text-center">Research Projects</h2>
 				<div className="mt-12 grid gap-6 md:grid-cols-2">
-					{academicPortfolio.projects.map((project) => (
-						<article key={project.title} className="rounded-lg border border-[var(--border)] bg-white p-7">
-							<h3 className="text-[22px] font-semibold">{project.title}</h3>
+					{PORTFOLIO_DATA.projects.map((project) => (
+						<article key={project.title} className="overflow-hidden rounded-lg border border-[var(--border)] bg-white">
+							<img src={project.image} alt={`${project.title} project preview`} className="h-48 w-full object-cover" />
+							<div className="p-7">
+								<h3 className="text-[22px] font-semibold">{project.title}</h3>
 							<p className="mt-4 text-sm text-[var(--muted)]"><strong>Funding:</strong> {project.funding}</p>
 							<p className="mt-1 text-sm text-[var(--muted)]"><strong>Duration:</strong> {project.duration}</p>
 							<span className="mt-4 inline-flex rounded-full bg-[var(--primary)]/10 px-3 py-1 text-sm font-semibold text-[var(--primary)]">Status: {project.status}</span>
 							<ul className="mt-7 space-y-3 text-[var(--muted)]">{project.points.map((point) => <li key={point}>• {point}</li>)}</ul>
+							</div>
 						</article>
 					))}
 				</div>
@@ -231,7 +234,7 @@ function ContactSection() {
 		event.preventDefault();
 		const subject = encodeURIComponent(`Academic inquiry from ${form.name}`);
 		const body = encodeURIComponent(`${form.message}\n\nInstitution: ${form.name}\nEmail: ${form.email}`);
-		window.location.href = `mailto:${academicPortfolio.contact.email}?subject=${subject}&body=${body}`;
+		window.location.href = `mailto:${PORTFOLIO_DATA.contact.email}?subject=${subject}&body=${body}`;
 		toast.info("Your email client has been opened.");
 	};
 	return (
@@ -239,7 +242,7 @@ function ContactSection() {
 			<div className="container-custom">
 				<h2 className="section-title text-center">Get In Touch</h2>
 				<div className="mt-12 grid gap-12 md:grid-cols-2">
-					<div><h3 className="mb-5 border-b border-[var(--border)] pb-3 text-lg font-semibold uppercase tracking-wide">Affiliation & Academic Profiles</h3><p className="text-[var(--muted)]">{academicPortfolio.contact.affiliation}</p><div className="mt-8 space-y-3 text-[var(--muted)]"><p>Email: <a className="text-[var(--primary)]" href={`mailto:${academicPortfolio.contact.email}`}>{academicPortfolio.contact.email}</a></p><p>ORCID ID: <a className="text-[var(--primary)]" href={academicPortfolio.contact.orcidUrl} target="_blank" rel="noreferrer">{academicPortfolio.contact.orcid}</a></p><p>ResearchGate: <a className="text-[var(--primary)]" href={academicPortfolio.contact.researchGateUrl} target="_blank" rel="noreferrer">{academicPortfolio.contact.researchGate}</a></p></div></div>
+					<div><h3 className="mb-5 border-b border-[var(--border)] pb-3 text-lg font-semibold uppercase tracking-wide">Affiliation & Academic Profiles</h3><p className="text-[var(--muted)]">{PORTFOLIO_DATA.contact.affiliation}</p><div className="mt-8 space-y-3 text-[var(--muted)]"><p>Email: <a className="text-[var(--primary)]" href={`mailto:${PORTFOLIO_DATA.contact.email}`}>{PORTFOLIO_DATA.contact.email}</a></p><p>ORCID ID: <a className="text-[var(--primary)]" href={PORTFOLIO_DATA.contact.orcidUrl} target="_blank" rel="noreferrer">{PORTFOLIO_DATA.contact.orcid}</a></p><p>ResearchGate: <a className="text-[var(--primary)]" href={PORTFOLIO_DATA.contact.researchGateUrl} target="_blank" rel="noreferrer">{PORTFOLIO_DATA.contact.researchGate}</a></p></div></div>
 					<form onSubmit={submit} className="space-y-4"><h3 className="mb-5 border-b border-[var(--border)] pb-3 text-lg font-semibold uppercase tracking-wide">Message Form</h3><input required value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} placeholder="Institution Name" className="form-field" /><input required type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} placeholder="Institutional Email" className="form-field" /><textarea required value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} placeholder="Inquiry / Message Body" rows={5} className="form-field resize-none" /><div className="text-right"><button className="btn-primary" type="submit">Send Formal Inquiry</button></div></form>
 				</div>
 			</div>
@@ -260,7 +263,7 @@ export default function DashboardPage() {
 				<ProjectsSection />
 				<ContactSection />
 			</main>
-			<footer className="border-t border-[var(--border)] bg-[var(--secondary)] py-6 text-center text-sm text-[var(--muted)]">© {new Date().getFullYear()} Aris Setiawan, M.Sc. Academic Portfolio.</footer>
+			<footer className="border-t border-[var(--border)] bg-[var(--secondary)] py-6 text-center text-sm text-[var(--muted)]">© {new Date().getFullYear()} Dr. Amelia Hart Academic Portfolio.</footer>
 			<ToastContainer position="bottom-right" autoClose={2500} theme="light" />
 		</div>
 	);
